@@ -1,0 +1,382 @@
+create database aapm;
+USE aapm;
+-- feito ok
+
+
+CREATE TABLE tipoCurso(
+cod_tipoCurso int auto_increment not null,
+nome_tipoCurso varchar(50) not null,
+
+PRIMARY KEY (cod_tipoCurso)
+);
+
+
+-- feito
+CREATE TABLE curso (
+ cod_curso int auto_increment not null,
+ cod_tipoCurso int not null,
+ nome_curso varchar(50) not null,
+ 
+ PRIMARY KEY (cod_curso),
+ FOREIGN KEY (cod_tipoCurso) REFERENCES tipoCurso(cod_tipoCurso)
+);
+
+-- feito
+CREATE TABLE periodo (
+cod_periodo int auto_increment not null,
+periodo varchar(50) not null,
+
+PRIMARY KEY (cod_periodo)
+);
+
+-- feito
+CREATE TABLE turma (
+ cod_turma int auto_increment not null,
+ cod_curso int not null,
+ cod_periodo int not null,
+ nome_turma varchar(50) not null,
+ 
+ PRIMARY KEY (cod_turma),
+ FOREIGN KEY (cod_curso) REFERENCES curso(cod_curso),
+ FOREIGN KEY (cod_periodo) REFERENCES periodo(cod_periodo)
+);
+
+-- feito
+CREATE TABLE material (
+ cod_material int auto_increment not null,
+ nome_material varchar(50) not null,
+ descricao_material varchar(250) not null,
+ status_material tinyint(1),
+ 
+ PRIMARY KEY (cod_material)
+);
+
+-- feito
+CREATE TABLE evento (
+cod_usuario int not null,
+ cod_evento int auto_increment not null,
+ data_evento date not null,
+ nome_evento varchar(100) not null,
+ local_evento varchar(50) not null,
+ horario_evento varchar(10) not null,
+ descricao_evento varchar(250) not null,
+ imagem longblob null,
+ PRIMARY KEY (cod_evento)
+);
+
+
+ -- feito
+CREATE TABLE camiseta (
+ cod_camiseta int auto_increment not null,
+ modelo_camiseta varchar(100) not null,
+ quantidade int not null,
+ 
+ PRIMARY KEY (cod_camiseta)
+);
+
+
+-- feito
+CREATE TABLE cargo (
+    cod_cargo INT AUTO_INCREMENT NOT NULL,
+    nome_cargo VARCHAR(50) NOT NULL,
+    PRIMARY KEY (cod_cargo)
+);
+
+CREATE table usuario (
+    cod_usuario int auto_increment not null,
+    cod_turma int not null,
+    cod_camiseta int not null,
+    cod_cargo int not null,
+    nome varchar(150) not null,
+    cpf varchar(11) not null,
+    celular varchar(11) not null,
+    email varchar(255) not null,
+    senha varchar(25) not null,
+    rua varchar(255) not null,
+    cep varchar(9) not null,
+    bairro varchar(50) not null,
+    cidade varchar(50) not null,
+    numero varchar(5) not null,
+    complemento varchar(255) null,
+    status_usuario tinyint(1) not null,
+    data_inscricao date not null,
+    data_vencimento date not null,
+    foto_perfil  LONGBLOB, -- Novo campo para foto de perfil
+    PRIMARY KEY (cod_usuario),
+    FOREIGN KEY (cod_turma) REFERENCES turma(cod_turma),
+    FOREIGN KEY (cod_camiseta) REFERENCES camiseta(cod_camiseta),
+    FOREIGN KEY (cod_cargo) REFERENCES cargo(cod_cargo)
+);
+
+
+CREATE TABLE livro (
+    cod_livro int auto_increment not null,
+    titulo varchar(50) not null,
+    autor varchar(50) not null,
+    genero varchar(50) not null,
+    descricao varchar(250) not null,
+    PRIMARY KEY (cod_livro)
+);
+
+-- feito
+CREATE TABLE indicacao (
+    cod_indicacao int auto_increment not null,
+    cod_usuario int not null,
+    titulo varchar(50) not null,
+    autor varchar(50) not null,
+    genero varchar(50) not null,
+    descricao varchar(250) not null,
+    status_indicacao tinyint (1),
+    PRIMARY KEY (cod_indicacao),
+    FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+-- feito
+CREATE TABLE emprestimo_material (
+ cod_material int auto_increment not null,
+ cod_usuario int not null,
+ status_emprestimo tinyint(1) not null,
+ 
+ FOREIGN KEY (cod_material) REFERENCES material(cod_material),
+ FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+
+-- feito
+create table patrimonio (
+    cod_patrimonio INT auto_increment not null,
+    nome_patrimonio varchar (50) not null,
+    detalhe_patrimonio varchar (250) not null,
+    status_patrimonio tinyint(1),
+    primary key (cod_patrimonio)
+);
+
+
+create table ocorrencia_patrimonio (
+    cod_ocorrencia int auto_increment not null,
+    cod_patrimonio int not null,
+    cod_usuario int not null,
+    data_ocorrencia date not null,
+    detalhes_ocorrencia varchar(250) not null,
+    status_ocorrencia tinyint(1),
+   
+    PRIMARY KEY (cod_ocorrencia),
+    FOREIGN KEY (cod_patrimonio) REFERENCES patrimonio(cod_patrimonio),
+    FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+
+
+create table ocorrencia_material (
+    cod_ocorrencia int auto_increment not null,
+    cod_material int null,
+    cod_usuario int not null,
+    data_ocorrencia date not null,
+    detalhes_ocorrencia varchar(250) not null,
+    status_ocorrencia tinyint(1),
+   
+    PRIMARY KEY (cod_ocorrencia),
+    FOREIGN KEY (cod_material) REFERENCES material(cod_material),
+    FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+
+-- feito
+CREATE TABLE entrega_camiseta (
+ cod_entrega int auto_increment not null,
+ cod_camiseta int not null,
+ cod_usuario int not null,
+ data_entrega date null,
+ status_entrega tinyint(1) not null,
+ 
+ PRIMARY KEY (cod_entrega),
+ FOREIGN KEY (cod_camiseta) REFERENCES camiseta(cod_camiseta),
+ FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+CREATE TABLE armario (
+ cod_armario int auto_increment not null,
+ cod_usuario int null,
+ nome_armario varchar (4),
+ status_armario TINYINT(1) NOT NULL,
+
+ PRIMARY KEY (cod_armario),
+ FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+
+
+-- feito
+CREATE TABLE indicacao_evento (
+ cod_evento int auto_increment not null,
+ cod_usuario int not null,
+ data_evento date not null,
+ nome_evento varchar(100) not null,
+ local_evento varchar(50) not null,
+ horario_evento varchar(10) not null,
+ descricao_evento varchar(250) not null,
+ imagem longblob null,
+ status_indicacao tinyint(1),
+ 
+  FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario),
+ PRIMARY KEY (cod_evento)
+);
+
+
+-- feito
+CREATE TABLE indicacao_material (
+cod_usuario int not null,
+ cod_material int auto_increment not null,
+ nome_material varchar(50) not null,
+ descricao_material varchar(250) not null,
+ status_indicacao tinyint(1),
+ FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario),
+ PRIMARY KEY (cod_material)
+);
+-- feito
+CREATE TABLE solicitacao_material (
+    cod_solicitacao INT AUTO_INCREMENT PRIMARY KEY,  -- Esta é a chave primária autoincrementável
+    cod_material INT NOT NULL,
+    cod_usuario INT NOT NULL,
+    status_solicitacao TINYINT(1),
+    FOREIGN KEY (cod_material) REFERENCES material(cod_material),
+    FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario)
+);
+
+
+-- feito
+create table solicitacao_patrimonio (
+    cod_patrimonio INT auto_increment not null,
+    cod_usuario int not null,
+    detalhe_patrimonio varchar (250) not null,
+    status_solicitacao tinyint(1),
+     FOREIGN KEY (cod_usuario) REFERENCES usuario(cod_usuario),
+    primary key (cod_patrimonio)
+);
+
+
+-- Inserindo dados na tabela tipoCurso
+INSERT INTO tipoCurso (nome_tipoCurso) VALUES
+('Presencial'),
+('EAD');
+
+-- Inserindo dados na tabela curso
+INSERT INTO curso (cod_tipoCurso, nome_curso) VALUES
+(1, 'Engenharia de Software'),
+(1, 'Administração'),
+(2, 'Marketing Digital');
+
+-- Inserindo dados na tabela periodo
+INSERT INTO periodo (periodo) VALUES
+('Manhã'),
+('Tarde'),
+('Noite');
+
+-- Inserindo dados na tabela turma
+INSERT INTO turma (cod_curso, cod_periodo, nome_turma) VALUES
+(1, 1, 'Engenharia - Manhã 2023'),
+(2, 2, 'Administração - Tarde 2023'),
+(3, 3, 'Marketing - Noite 2023');
+
+-- Inserindo dados na tabela material
+INSERT INTO material (nome_material, descricao_material, status_material) VALUES
+('Caderno', 'Caderno pautado com 200 folhas', 1),
+('Caneta', 'Caneta esferográfica azul', 1),
+('Livro de Matemática', 'Livro de Matemática Básica, 300 páginas', 1),
+('Calculadora Científica', 'Calculadora Científica modelo Casio FX-991', 1),
+('Mochila', 'Mochila preta com capacidade de 30 litros', 1),
+('Agenda 2024', 'Agenda anual para 2024, capa dura', 1),
+('Pen Drive', 'Pen Drive de 64GB USB 3.0', 1),
+('Fones de Ouvido', 'Fones de ouvido Bluetooth com cancelamento de ruído', 1);
+
+
+-- Inserindo dados na tabela evento
+INSERT INTO evento (nome_evento, local_evento, horario_evento, descricao_evento) VALUES
+('Workshop de Inovação', 'Auditório Principal', '10:00', 'Um workshop sobre inovação e tecnologia.'),
+('Festa de Confraternização', 'Salão de Festas', '19:00', 'Confraternização de final de ano.');
+
+-- Inserindo dados na tabela camiseta
+INSERT INTO camiseta (modelo_camiseta, quantidade) VALUES
+('Camiseta Básica', 100),
+('Camiseta Estampada', 50);
+
+-- Inserindo dados na tabela cargo
+INSERT INTO cargo (nome_cargo) VALUES
+('Aluno'),
+('Professor'),
+('Coordenador');
+
+-- Inserindo dados na tabela usuario
+INSERT INTO usuario (cod_turma, cod_camiseta, cod_cargo, nome, cpf, celular, email, senha, rua, cep, bairro, cidade, numero, complemento, status_usuario, data_inscricao, data_vencimento) VALUES
+(1, 1, 1, 'João Silva', '12345678900', '11999999999', 'joao@gmail.com', 'senha123', 'Rua A, 123', '12345-678', 'Centro', 'São Paulo', '123', '', 1, '2023-01-01', '2024-01-01'),
+(2, 2, 2, 'Maria Oliveira', '09876543211', '11888888888', 'maria@gmail.com', 'senha456', 'Rua B, 456', '23456-789', 'Jardim', 'Rio de Janeiro', '456', 'Apto 101', 1, '2023-01-01', '2024-01-01');
+
+-- Inserindo dados na tabela livro
+INSERT INTO livro (titulo, autor, genero, descricao) VALUES
+('Aprendendo JavaScript', 'John Doe', 'Tecnologia', 'Um guia completo para iniciantes.'),
+('Dom Casmurro', 'Machado de Assis', 'Literatura Brasileira', 'Um dos maiores clássicos da literatura brasileira.');
+
+INSERT INTO usuario (cod_turma, cod_camiseta, cod_cargo, nome, cpf, celular, email, senha, rua, cep, bairro, cidade, numero, complemento, status_usuario, data_inscricao, data_vencimento, foto_perfil) VALUES
+(3, 1, 1, 'Vitão', '34567890123', '11987654323', 'vitor.pereira@gmail.com', '12345678', 'Rua C, 789', '34567890', 'Vila', 'São Paulo', '300', 'Casa', 1, '2024-03-01', '2025-03-01', NULL),
+(1, 2, 1, 'Ana Santos', '45678901234', '11987654324', 'ana.santos@example.com', 'senha101', 'Rua D, 321', '45678901', 'Bairro Novo', 'São Paulo', '400', '', 1, '2024-04-01', '2025-04-01', NULL),
+(2, 2, 2, 'Roberto Lima', '56789012345', '11987654325', 'roberto.lima@example.com', 'senha202', 'Rua E, 654', '56789012', 'Praia', 'São Paulo', '500', '', 1, '2024-05-01', '2025-05-01', NULL);
+-- Inserindo dados na tabela indicacao
+
+INSERT INTO indicacao (cod_usuario, titulo, autor, genero, descricao, status_indicacao) VALUES
+(2, 'O Cortiço', 'Aluísio Azevedo', 'Literatura Brasileira', 'Uma obra clássica do naturalismo brasileiro.', 1),
+(3, '1984', 'George Orwell', 'Ficção Científica', 'Uma visão distópica sobre o controle governamental.', 2),
+(3, 'Clean Code', 'Robert C. Martin', 'Tecnologia', 'Um guia essencial para boas práticas de programação.', 0),
+(2, 'O Hobbit', 'J.R.R. Tolkien', 'Fantasia', 'Aventuras épicas de Bilbo Bolseiro na Terra Média.', 0),
+(1, 'A Revolução dos Bichos', 'George Orwell', 'Política', 'Uma sátira sobre a corrupção no poder.', 2),
+(1, 'Python para Análise de Dados', 'Wes McKinney', 'Tecnologia', 'Ideal para quem deseja trabalhar com ciência de dados.', 1),
+(3, 'Senhora', 'José de Alencar', 'Romance', 'Um romance que discute a ascensão social por meio do casamento.', 0),
+(3, 'Introdução à Teoria Geral da Administração', 'Idalberto Chiavenato', 'Administração', 'Indicado para quem estuda administração e gestão.', 2);
+
+
+
+-- Inserindo dados na tabela emprestimo_material
+INSERT INTO emprestimo_material (cod_material, cod_usuario, status_emprestimo) VALUES
+(1, 1, 1),
+(2, 2, 1);
+
+-- Inserindo dados na tabela patrimonio
+INSERT INTO patrimonio (nome_patrimonio, detalhe_patrimonio, status_patrimonio) VALUES
+('Computador', 'Computador Dell', 1),
+('Projetor', 'Projetor Epson', 1),
+('Impressora Laser', 'Impressora HP LaserJet Pro 400', 1),
+('Cadeira Ergonômica', 'Cadeira ergonômica com ajuste de altura e apoio lombar', 1),
+('Projetor 4K', 'Projetor Sony 4K com suporte a HDMI e Wi-Fi', 1),
+('Mesa de Reunião', 'Mesa de reunião de madeira para 8 pessoas', 1),
+('Armário de Arquivos', 'Armário de arquivos com 4 gavetas, cor cinza', 1),
+('Servidor Dedicado', 'Servidor Dell PowerEdge R740 para armazenamento de dados', 1);
+
+-- Inserindo dados na tabela ocorrencia_patrimonio
+INSERT INTO ocorrencia_patrimonio (cod_patrimonio, cod_usuario, data_ocorrencia, detalhes_ocorrencia, status_ocorrencia) VALUES
+(1, 1, '2023-02-01', 'Computador com problema de inicialização.', 1),
+(2, 2, '2023-03-15', 'Projetor não está funcionando.', 0);
+
+-- Inserindo dados na tabela ocorrencia_material
+INSERT INTO ocorrencia_material (cod_material, cod_usuario, data_ocorrencia, detalhes_ocorrencia, status_ocorrencia) VALUES
+(1, 1, '2023-04-10', 'Caderno rasgado.', 1),
+(2, 2, '2023-05-20', 'Caneta quebrada.', 0);
+
+-- Inserindo dados na tabela entrega_camiseta
+INSERT INTO entrega_camiseta (cod_camiseta, cod_usuario, data_entrega, status_entrega) VALUES
+(1, 1, '2023-02-10', 1),
+(2, 2, '2023-03-12', 1);
+
+-- Inserindo dados na tabela armario
+INSERT INTO armario (cod_usuario, status_armario, nome_armario) VALUES
+(1, 1, 'A02'),
+(2, 0, 'A01');
+
+INSERT INTO solicitacao_material (cod_material, cod_usuario, status_solicitacao)
+VALUES 
+(1, 1, 0), -- João Silva solicita o Caderno
+(2, 2, 0), -- Maria Souza solicita a Caneta
+(3, 1, 0); -- João Silva solicita a Mochila
+
+INSERT INTO indicacao_material (cod_usuario, nome_material, descricao_material, status_indicacao)
+VALUES
+(1,'Laptop', 'Laptop Dell Inspiron, 8GB RAM, 256GB SSD', 1),
+(1,'Projetor', 'Projetor Epson Full HD, 3000 lumens', 0),
+(1,'impressora 3D', 'Projetor Epson Full HD, 3000 lumens', 0),
+(2,'Mesa de Escritório', 'Mesa de escritório com 4 gavetas, cor marrom', 1);
+
+
+
+
