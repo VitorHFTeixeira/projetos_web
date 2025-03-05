@@ -1,0 +1,91 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #c7c7c7;
+    color: #cdcdcd;
+    font-family: sans-serif;
+}
+.menuAlternar {
+    display: block;/*exibição em bloco*/
+    position: relative;/*posição relativa ao objeto*/
+    top: 50px;/*posicionar 50px distante do topo*/
+    left: 50px;/*posicionar 50px distante da esquerda*/
+    z-index: 1;/*posicionar o menu à frente dos outros elementos*/
+}
+
+.menuAlternar a {
+    text-decoration: none;/*retira o sublinhado dos links*/
+    list-style: none;/*retira os marcadores da lista*/
+    color: #232323;/*cor da fonte preto*/
+    transition: color 0.3s ease;
+}
+.menuAlternar a:hover { /*trocar cor da fonte  quando o mouse passar sobre os links*/
+    color: tomato;/*cor da fonte tomate*/
+}
+
+.menuAlternar span {/*desenhar menu burger*/
+    border-radius: 3px;
+    height: 4px;/*altura da linha 4px*/
+    width: 33px; /*largura da linha 33px*/
+    background: #f5f5f5;/* cor da linha*/
+    display: block;/*exibição em bloco*/
+    margin-bottom: 5px;/* distância inferior para os itens do menu 5px*/
+    z-index: 2;/*posiciona acima dos outros elementos*/
+    transform-origin: 4px 0px;
+    transition: transform 0.5s;
+    
+}
+.menuAlternar span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;/*ajusta o tamanho do traço para 100%*/
+}
+/*transforma o menu burger em um X*/
+.menuAlternar input:checked ~ span {
+    transform: rotate(45deg) translate(-2px, -1px);/*gire em 45 graus e desloca */
+    opacity: 1;
+    background: #232323;
+}
+.menuAlternar input:checked ~ span:nth-child(3) {/*seleciona o span do meio*/
+    opacity: 0;/*oculta o traço*/
+}
+.menuAlternar input:checked ~ span:nth-last-child(2)/*seleciona o span de baixo*/
+ {
+   transform: rotate(-45deg) translate(0, -1px);/*gire em -45 graus e desloca */
+   
+ }
+ /*posiciona e oculta a caixa de seleção */
+ .menuAlternar input
+ {
+   display: block;/*exibição em bloco*/
+   width: 40px;/*largura suficiente para cobrir o span*/
+   height: 32px;/*altura suficiente para cobrir o span*/
+   position: absolute;
+   top: -7px;/*posiciona o chebox sobre os spans*/
+   left: -5px;/*posiciona o chebox sobre os spans*/
+   cursor: pointer;/*muda o tipo de ponteiro do mouse*/
+   opacity: 0;/*oculta a exibição do checkbox*/
+   z-index: 1;
+ }
+
+ .menu {
+   position: absolute;
+   width: 300px;
+   margin: -100px 0 0 -50px;
+   padding: 50px;
+   padding-top: 125px;
+    background: #fff;
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s;
+    z-index: -1;/*posiciona o menu abaixo dos spans*/
+  }
+ .menu li {
+   padding: 10px 0;
+   font-size: 22px;
+ }
+ .menuAlternar input:checked ~ ul {
+   transform: none;
+ }

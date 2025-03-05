@@ -1,0 +1,109 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(243, 243, 231);
+    display: flex;/* layout flexível com itens*/
+    flex-direction: column;
+    justify-content: center;/*posicionar centralizado*/
+    align-items: center ;/*alinhar ao centro*/
+}
+
+nav li{
+    display: inline; 
+       
+}
+nav li a {
+    text-decoration: none;
+    color: black;
+    padding-right: 10px;
+}
+
+nav li a:hover {
+    color: #7e7777;
+}
+
+.card-grid {
+    margin-top: 40px;
+    display: grid;/*posiciona os cards lado a lado*/
+    grid-template-columns: auto;/* colunas automáticas*/
+    grid-template-areas: "a a a a";/*divide o grid em 4 colunas*/
+    gap: 20px;/* espaço (vão) entre as colunas do grid*/
+    width: 1300px;/*largura total do grid*/
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    font-size: 1em;
+    color: #666;
+}
+
+.card-content .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;/*velocidade de transição da cor do botão*/
+}
+
+.card-content .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);/*movimenta o botão em -2px no eixo y*/
+}
+
+.card:hover {
+    transform: translateY(-5px);/*movimenta o cartão em -5px no eixo y*/
+}
+
+
+
+
+
+
+
+
+
+/*
+@media (max-width: 768px) {
+    nav ul {
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+    .banner img {
+        width: 400px;
+        height: 154px;
+    }
+}
+    
+}
+*/

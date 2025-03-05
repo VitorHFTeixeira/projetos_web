@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: "lexend";
+    src: url(font/Lexend-VariableFont_wght.ttf);
+}
+header{
+    background-image: url(img/fundo.png);
+    height: 500px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+}
+.logo{
+    font-family: "lexend";
+    font-size: 90px;
+    font-weight: 500px;
+
+}
+.slogan {
+    font-family: "lexend";
+    font-size: 30px;
+}
+.nossoProcesso{
+    background-color: darkolivegreen;
+}
+.processo img{
+    width: 400px;
+}
+.processo {
+    width: 400px;
+    background-color: azure;
+    border-radius: 20px;
+    margin: 0 20px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    padding: 70px 0px;
+}
+.titulo {
+    font-family: "lexend";
+    font-size: 60px;
+    color: rgba(0, 0, 0, 0.76);
+    padding: 100px;
+    font-weight: 500;
+}
+.texto {
+    font-family: "lexend";
+    font-size: 20px;
+    padding: 5px 7px;
+}
+.sobreNos .titulo {
+    color: black;
+}
+.SobreNos {
+    margin: 0 100px;
+}
+h3{
+    font-family: "lexend";
+    font-size: 30px;
+    color: darkgreen;
+}
+.footer{
+    background-color: darkgreen;
+    padding-bottom: 70px;
+}
+.contato {
+    font-family: "lexend";
+    color: aliceblue;
+    padding: 0 100px;
+    font-size: 36px;
+}

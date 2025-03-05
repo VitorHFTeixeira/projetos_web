@@ -1,0 +1,40 @@
+body {/* corpo do site*/
+    font-family: sans-serif;/* fonte sem serifa (ornamentos*/
+    display: flex;/* layout flexível com itens*/
+    justify-content: center;/*posicionar centralizado*/
+    align-items: center ;/*alinhar ao centro*/
+    background-color: #f0f0f0;/* cor de fundo cinza*/
+    min-height: 100vh;/* altura da visualização */
+}
+
+form {/*formulário*/
+background-color: #fff;/*cor de fundo*/
+padding: 30px;/* espaçamento interno*/
+border-radius: 10px;/* arredondamento*/
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);/* sombra da caixa*/
+}
+label {/* rótulo do campo*/
+    display: block; /*posicionamento em bloco*/
+    margin-bottom: 5px;/* magem inferior*/
+}
+input, textarea {/* campo e area de texto*/
+    width: 100%;/*o campo ocupa 100% do espaço disponível*/
+    padding: 10px; /* espaçamento interno 10px*/
+    margin-bottom: 15px;/* margem inferior*/
+    border: 1px solid #ccc; /* espessura, tipo e cor da borda*/
+    border-radius: 3px;/* arredondamento da borda*/
+}
+textarea { /*área do texto da mensagem*/
+    height: 120px; /* altra da area do texto*/
+}
+button {
+    background-color: #4caf50;/* cor de fundo*/
+    color: #fff;/*cor da fonte*/
+    padding: 12px 20px; /* 12px altura e 20px  laterais*/
+    border: none; /*sem borda*/
+    cursor: pointer;/* altera o cursor do mouse*/
+}
+
+button:hover { /*mouse sobre o botão*/
+    background-color: #45a049;/* altera a cor de fundo do botão*/
+}
